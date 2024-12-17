@@ -15,17 +15,17 @@ Confirmation dialogs for critical actions like delete operations
 
 
 Libraries Used 🧰
-    Frontend
-      React.js
-      React Router
-      Redux
-      Tailwind CSS
+Frontend
+  React.js
+  React Router
+  Redux
+  Tailwind CSS
     
-    Backend
-      Node.js
-      Express.js
-      MongoDB
-      JWT
+Backend
+  Node.js
+  Express.js
+  MongoDB
+  JWT
 
 
 Setup Instructions ⚙️
