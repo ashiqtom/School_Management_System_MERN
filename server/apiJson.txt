@@ -1,0 +1,175 @@
+Login (POST /api/auth/login)
+Request:
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+Response:
+{
+  "token": "your_jwt_token"
+}
+
+
+Office Staff Routes
+(POST /api/admin/create-account)
+Headers:
+{
+  "Authorization": "Bearer your_jwt_token"
+}
+Request:
+{
+    "name": "Staff 1",
+    "email": "staff1@example.com",
+    "password": "staff123",
+    "role": "Staff"
+}
+Response:
+{
+  "message": "User created successfully",
+  "user": {
+    "_id": "63cbe5fdc18a1a238b2e617a",
+    "name": "Office Staff 1",
+    "email": "office.staff1@example.com",
+    "role": "OfficeStaff"
+  }
+}
+
+Office Staff Routes
+Add Fees History (PUT /api/office-staff/fees/:studentId)
+Headers:
+{
+  "Authorization": "Bearer your_jwt_token"
+}
+Request (:studentId = 63cbf86b8f4b7d001eefa192):
+{
+  "feesHistory": [
+    {
+      "amount": 5000,
+      "paidDate": "2024-01-01",
+      "status": "Paid"
+    },
+    {
+      "amount": 3000,
+      "paidDate": "2024-02-01",
+      "status": "Pending"
+    }
+  ]
+}
+Response:
+{
+  "_id": "63cbf86b8f4b7d001eefa192",
+  "name": "John Doe",
+  "class": "10th Grade",
+  "libraryHistory": [],
+  "feesHistory": [
+    {
+      "amount": 5000,
+      "paidDate": "2024-01-01T00:00:00.000Z",
+      "status": "Paid"
+    },
+    {
+      "amount": 3000,
+      "paidDate": "2024-02-01T00:00:00.000Z",
+      "status": "Pending"
+    }
+  ]
+}
+
+Librarian Routes
+
+{
+    "name": "gogo",
+    "email": "gogo@example.com",
+    "password": "gogo123",
+    "role": "Librarian"
+}
+
+
+View Library History (GET /api/librarian/library/:studentId)
+Headers:
+{
+  "Authorization": "Bearer your_jwt_token"
+}
+Request (:studentId = 63cbf86b8f4b7d001eefa192): No body is needed for this request.
+Response:
+[
+  {
+    "bookTitle": "Harry Potter and the Sorcerer's Stone",
+    "borrowedDate": "2024-03-01T00:00:00.000Z",
+    "returnedDate": "2024-03-15T00:00:00.000Z"
+  },
+  {
+    "bookTitle": "The Great Gatsby",
+    "borrowedDate": "2024-04-01T00:00:00.000Z",
+    "returnedDate": null
+  }
+]
+
+
+
+Sample User and Student Data
+Sample Users for Authentication:
+json
+Copy code
+[
+  {
+    "name": "Admin",
+    "email": "admin@example.com",
+    "password": "admin123",
+    "role": "Admin"
+  },
+  {
+    "name": "Office Staff",
+    "email": "office.staff@example.com",
+    "password": "staff123",
+    "role": "OfficeStaff"
+  },
+  {
+    "name": "Librarian",
+    "email": "librarian@example.com",
+    "password": "librarian123",
+    "role": "Librarian"
+  }
+]
+Sample Students:
+json
+Copy code
+[
+  {
+    "_id": "63cbf86b8f4b7d001eefa192",
+    "name": "John Doe",
+    "class": "10th Grade",
+    "libraryHistory": [
+      {
+        "bookTitle": "Harry Potter and the Sorcerer's Stone",
+        "borrowedDate": "2024-03-01T00:00:00.000Z",
+        "returnedDate": "2024-03-15T00:00:00.000Z"
+      }
+    ],
+    "feesHistory": [
+      {
+        "amount": 5000,
+        "paidDate": "2024-01-01T00:00:00.000Z",
+        "status": "Paid"
+      }
+    ]
+  },
+  {
+    "_id": "63cbf86b8f4b7d001eefa193",
+    "name": "Jane Smith",
+    "class": "9th Grade",
+    "libraryHistory": [],
+    "feesHistory": [
+      {
+        "amount": 4000,
+        "paidDate": "2024-01-10T00:00:00.000Z",
+        "status": "Paid"
+      },
+      {
+        "amount": 2000,
+        "paidDate": "2024-02-15T00:00:00.000Z",
+        "status": "Pending"
+      }
+    ]
+  }
+]
