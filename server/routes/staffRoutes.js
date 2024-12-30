@@ -1,6 +1,6 @@
-const express = require("express");
-const staffController = require("../controllers/staffController")
-const {authMiddleware, checkRole } = require("../middleware/authMiddleware");
+import express from "express";
+import staffController from "../controllers/staffController.js";
+import { authMiddleware, checkRole } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -10,4 +10,4 @@ router.get("/student/:id", authMiddleware, checkRole("admin","staff"), staffCont
 router.put("/student/:id", authMiddleware, checkRole("admin","staff"), staffController.editStudent);
 router.delete("/student/:id", authMiddleware, checkRole("admin","staff"), staffController.deleteStudent);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-exports.authMiddleware = async (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1];
   if (!token) return res.status(401).json({ message: "No token, authorization denied" });
 
@@ -16,7 +16,7 @@ exports.authMiddleware = async (req, res, next) => {
   }
 };
 
-exports.checkRole = (...roles) => (req, res, next) => {
+export const checkRole = (...roles) => (req, res, next) => {
   if (!roles.includes(req.user.role)) { // Check if user's role is in the array
     return res.status(403).json({ message: "Access denied" });
   }

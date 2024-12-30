@@ -19,7 +19,10 @@ function MainNavigation() {
     <header className="bg-blue-500 text-white py-4 shadow-md">
       <nav className="container mx-auto px-4">
         <div className="flex justify-between items-center">
+          {/* Left: Title */}
           <h1 className="text-xl font-bold">School Management System</h1>
+
+          {/* Menu button for mobile */}
           <button
             className="md:hidden text-white"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -27,83 +30,85 @@ function MainNavigation() {
             ☰
           </button>
         </div>
+
+        {/* Navigation Links */}
         <ul
-          className={`mt-4 md:mt-0 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 transition-all duration-300 ${
+          className={`flex flex-col md:flex-row items-center md:justify-between space-y-4 md:space-y-0 md:space-x-8 transition-all duration-300 ${
             menuOpen ? 'block' : 'hidden md:flex'
           }`}
         >
-          {/* SignIn link */}
-          {!role && (
-            <li>
-              <Link
-                to="signin"
-                className="text-lg font-semibold hover:text-gray-200 transition duration-200"
-              >
-                SignIn
-              </Link>
-            </li>
-          )}
-          
-          {/* Admin link */}
-          {role === 'admin' && (
-            <li>
-              <Link
-                to="admin"
-                className="text-lg font-semibold hover:text-gray-200 transition duration-200"
-              >
-                Admin Dashboard
-              </Link>
-            </li>
-          )}
-
-          {/* Staff and Add Student links */}
-          {['admin', 'staff'].includes(role) && (
-            <>
+          <div className="flex flex-col md:flex-row md:space-x-8">
+            {/* Links */}
+            {!role && (
               <li>
                 <Link
-                  to="staff"
+                  to="signin"
                   className="text-lg font-semibold hover:text-gray-200 transition duration-200"
                 >
-                  Staff Dashboard
+                  SignIn
                 </Link>
               </li>
+            )}
+            {role === 'admin' && (
               <li>
                 <Link
-                  to="add_student"
+                  to="admin"
                   className="text-lg font-semibold hover:text-gray-200 transition duration-200"
                 >
-                  Add Student
+                  Admin Dashboard
                 </Link>
               </li>
-            </>
-          )}
+            )}
+            {['admin', 'librarian'].includes(role) && (
+              <li>
+                <Link
+                  to="librarian"
+                  className="text-lg font-semibold hover:text-gray-200 transition duration-200"
+                >
+                  Librarian Dashboard
+                </Link>
+              </li>
+            )}
+            {['admin', 'staff'].includes(role) && (
+              <>
+                <li>
+                  <Link
+                    to="staff"
+                    className="text-lg font-semibold hover:text-gray-200 transition duration-200"
+                  >
+                    Staff Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="add_student"
+                    className="text-lg font-semibold hover:text-gray-200 transition duration-200"
+                  >
+                    Add Student
+                  </Link>
+                </li>
+              </>
+            )}
+            
+          </div>
 
-          {/* Librarian link */}
-          {['admin', 'librarian'].includes(role) && (
-            <li>
-              <Link
-                to="librarian"
-                className="text-lg font-semibold hover:text-gray-200 transition duration-200"
-              >
-                Librarian Dashboard
-              </Link>
-            </li>
-          )}
-
-          {/* SignOut button */}
+          {/* Right: SignOut button */}
           {role && (
-            <li>
-              <button
-                onClick={handleLogout}
-                className="text-lg font-semibold hover:text-gray-200 transition duration-200"
-              >
-                SignOut
-              </button>
-            </li>
+            <div className="ml-auto">
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="text-lg font-semibold hover:text-gray-200 transition duration-200"
+                >
+                  SignOut
+                </button>
+              </li>
+            </div>
           )}
         </ul>
       </nav>
     </header>
+
   );
 }
 

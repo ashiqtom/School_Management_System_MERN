@@ -21,6 +21,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.28.0",
     "redux-persist": "^6.0.0",
+    "school_management_system_mern": "file:..",
     "tailwindcss": "^3.4.14"
   },
   "devDependencies": {

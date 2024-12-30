@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/ErrorPage';
@@ -15,7 +15,15 @@ import LibrarianStudentForm from './Components/EditFormLibrarian';
 
 const router = createBrowserRouter([
   {
-    path: '',
+    path: '/',
+    element: <SignIn />,
+  },
+  {
+    path: 'signin',
+    element: <SignIn />,
+  },
+  {
+    path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -58,10 +66,6 @@ const router = createBrowserRouter([
             <EditStudentForm />
           </PrivateRoute>
         ),
-      },
-      {
-        path: 'signin',
-        element: <SignIn />,
       },
       {
         path: 'admin',

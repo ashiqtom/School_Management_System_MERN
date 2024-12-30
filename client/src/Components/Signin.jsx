@@ -65,6 +65,9 @@ const SignIn = () => {
 
   return (
     <div className='bg-gray-300 text-gray-600 flex flex-col justify-center items-center px-4'>
+      <div className="bg-blue-500 text-white shadow-md container p-4 rounded-md w-full max-w-sm">
+        <h1 className="text-xl font-bold">School Management System</h1>
+      </div>
       <form className='flex flex-col gap-4 w-full max-w-sm font-default' onSubmit={handleSubmit}>
         <h2 className='text-xl font-medium ml-3'>Login</h2>
         <InputField   

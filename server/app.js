@@ -1,13 +1,19 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const User = require("./models/User");
+import express from "express";
+import dotenv from "dotenv"
+import { connectDB } from "./config/db.js";
+import path from "path"
+import cors from "cors"
+import adminRoutes from "./routes/admin.js";
+import librarianRoutes from "./routes/librarianRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import staffRoutes from "./routes/staffRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+
+app.use(express.json())
 
 // CORS configuration
 const corsOptions = {
@@ -19,12 +25,12 @@ const corsOptions = {
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
+
+
+
+const __dirname = path.resolve()
+
 // Routes
-const adminRoutes = require("./routes/admin");
-const librarianRoutes=require("./routes/librarianRoutes")
-const authRoutes = require("./routes/authRoutes")
-const staffRoutes = require("./routes/staffRoutes")
-const studentRoutes = require("./routes/studentRoutes")
 
 app.use("/api/student", studentRoutes);
 app.use("/api/auth", authRoutes);
@@ -32,37 +38,15 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
 app.use("/api/librarian", librarianRoutes);
 
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, "/client/dist")))
 
-const connectDatabaseAndStartServer = async () => {
-  try {
-    // Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log("Database connected");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+  })  
+}
 
-    // Create Admin account if it doesn't exist
-    const existingAdmin = await User.findOne({ role: "admin" });
-    if (!existingAdmin) {
-      const adminUser = new User({
-        name: "Admin",
-        email: "admin@example.com",
-        password: "admin123", // You should hash this password in production!
-        role: "admin",
-      });
-
-      // Save admin user
-      await adminUser.save();
-      console.log("Admin account created: admin@example.com / admin123");
-    } else {
-      console.log("Admin account already exists.");
-    }
-
-    // Start the server
-    app.listen(process.env.PORT || 3000, () => {
-      console.log(`Server running on port ${process.env.PORT || 3000}`);
-    });
-  } catch (error) {
-    console.error("Database connection error:", error);
-  }
-};
-
-connectDatabaseAndStartServer();
+app.listen(process.env.PORT || 3000, () => {
+  connectDB()
+  console.log(`Server running on port http://localhost:${process.env.PORT || 3000}`);
+});

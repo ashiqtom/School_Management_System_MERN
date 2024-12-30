@@ -1,6 +1,6 @@
-  const Student = require("../models/Student");
+  import Student from "../models/Student.js";
   
-  exports.studentDetails=async (req, res) => {
+  const studentDetails = async (req, res) => {
       try {
         const student = await Student.find().select('-feesHistory'); 
         res.json(student);
@@ -10,7 +10,7 @@
       }
     }
 
-    exports.getstudent=async (req, res) => {
+    const getstudent = async (req, res) => {
       const { id } = req.params;
         try {
           const student = await Student.findById(id).select('-feesHistory');
@@ -22,7 +22,7 @@
     }
 
     
-    exports.editStudent = async (req, res) => {
+    const editStudent = async (req, res) => {
       try {
         const { id } = req.params;
         const updateData = req.body;
@@ -44,4 +44,10 @@
         console.error("Error editing user:", err);
         res.status(500).json({ message: "Error updating user", error: err.message });
       }
+    };
+
+    export default {
+      studentDetails,
+      getstudent,
+      editStudent
     };

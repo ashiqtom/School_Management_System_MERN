@@ -1,12 +1,11 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
-
-exports.login=async (req, res) => {
+export const login=async (req, res) => {
     const { email, password } = req.body;
   
-    try {
+    try { 
       const user = await User.findOne({ email });
       if (!user) return res.status(400).json({ message: "Invalid credentials" });
       
@@ -22,7 +21,9 @@ exports.login=async (req, res) => {
     }
   }
 
-
+export default{
+  login
+}
   // const User = require("../models/User");
   // const crypto = require('crypto');
   // const bcrypt = require("bcryptjs");

@@ -1,6 +1,6 @@
-const User = require("../models/User");
+import User from "../models/User.js";
 
-exports.createAccount=async (req, res) => {
+const createAccount=async (req, res) => {
     const { name, email, password, role } = req.body;
 
     try {
@@ -14,7 +14,7 @@ exports.createAccount=async (req, res) => {
 }
 
 // Fetch all users
-exports.getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({ _id: { $ne: req.user.id } }).select("-password"); // Exclude req.user and pssword : $ne = (Not Equal):
     res.status(200).json({ users });
@@ -26,7 +26,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     await User.findByIdAndDelete(id);
@@ -38,7 +38,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-exports.editUser = async (req, res) => {
+const editUser = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
@@ -61,3 +61,11 @@ exports.editUser = async (req, res) => {
     res.status(500).json({ message: "Error updating user", error: err.message });
   }
 };
+
+
+export default{
+  editUser,
+  deleteUser,
+  createAccount,
+  getAllUsers
+}

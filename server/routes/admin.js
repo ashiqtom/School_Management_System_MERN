@@ -1,6 +1,6 @@
-const express = require("express");
-const {authMiddleware, checkRole } = require("../middleware/authMiddleware");
-const adminController=require('../controllers/adminController')
+import express from "express";
+import { authMiddleware, checkRole } from "../middleware/authMiddleware.js";
+import adminController from '../controllers/adminController.js';
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.get("/users", authMiddleware, checkRole("admin"), adminController.getAllU
 router.delete("/users/:id", authMiddleware, checkRole("admin"), adminController.deleteUser);
 router.put("/users/:id", authMiddleware, checkRole("admin"), adminController.editUser);
 
-module.exports = router;
+export default router

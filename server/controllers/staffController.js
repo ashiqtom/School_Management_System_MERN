@@ -1,6 +1,6 @@
-const Student = require("../models/Student");
+import Student from "../models/Student.js";
 
-exports.createStudent=async (req,res) =>{
+const createStudent=async (req,res) =>{
   const { name, studentClass, libraryHistory, feesHistory } = req.body;
 
   try{
@@ -13,7 +13,7 @@ exports.createStudent=async (req,res) =>{
   }
 }
 
-exports.getStudents=async (req, res) => {
+const getStudents=async (req, res) => {
     try {
       const student = await Student.find();
       res.json(student);
@@ -23,7 +23,7 @@ exports.getStudents=async (req, res) => {
     }
 }
 
-exports.getstudent=async (req, res) => {
+const getstudent=async (req, res) => {
   const { id } = req.params;
     try {
       const student = await Student.findById(id);
@@ -35,7 +35,7 @@ exports.getstudent=async (req, res) => {
 }
 
 
-exports.editStudent = async (req, res) => {
+const editStudent = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
@@ -60,7 +60,7 @@ exports.editStudent = async (req, res) => {
 };
 
 
-exports.deleteStudent = async (req, res) => {
+const deleteStudent = async (req, res) => {
   try {
     const { id } = req.params;
     await Student.findByIdAndDelete(id);
@@ -71,3 +71,11 @@ exports.deleteStudent = async (req, res) => {
     res.status(500).json({ message: "Error deleting user", error: err.message });
   }
 };
+
+export default {
+  createStudent,
+  getStudents,
+  getstudent,
+  editStudent,
+  deleteStudent 
+}
