@@ -2,16 +2,17 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
+import PrivateRoute from './routes/PrivateRoute'; 
+
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/ErrorPage';
-import StaffDashboard from './Components/StaffDashboard';
-import LibrarianDashboard from './Components/LibrarianDashboard';
-import AddStudentForm from './Components/AddStudentForm';
-import EditStudentForm from './Components/EditStudentForm';
-import SignIn from './Components/Signin';
-import Admin from './Components/AdminDashboard';
-import PrivateRoute from './routes/PrivateRoute'; // Import PrivateRoute
-import LibrarianStudentForm from './Components/EditFormLibrarian';
+import StaffDashboard from './pages/StaffDashboard';
+import LibrarianDashboard from './pages/LibrarianDashboard';
+import AddStudentForm from './pages/AddStudentForm';
+import EditStudentForm from './pages/EditStudentForm';
+import SignIn from './pages/Signin';
+import Admin from './pages/AdminDashboard';
+
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
         path: 'librarian/student/:id',
         element: (
           <PrivateRoute allowedRoles={['admin', 'librarian']}>
-            <LibrarianStudentForm />
+            <EditStudentForm />
           </PrivateRoute>
         ),
       },

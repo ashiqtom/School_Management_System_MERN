@@ -1,6 +1,6 @@
 import { apiInstance } from "../ApiInstence";
 
-export const editStudent = async (id,data) => {
+export const editLibrarianStudent = async (id,data) => {
     try {
         const response = await apiInstance.put(`librarian/student/${id}`,data);
         return response;

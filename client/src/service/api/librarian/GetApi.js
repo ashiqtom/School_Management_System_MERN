@@ -19,7 +19,7 @@ export const getStudents = async () => {
 };
 
 
-export const getStudentById= async (id) => {
+export const getLibrarianStudentById= async (id) => {
   try {
     const response = await apiInstance.get(`librarian/student/${id}`);
     return response;

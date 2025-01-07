@@ -7,7 +7,6 @@ import adminRoutes from "./routes/admin.js";
 import librarianRoutes from "./routes/librarianRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
-import studentRoutes from "./routes/studentRoutes.js";
 
 dotenv.config();
 
@@ -25,28 +24,29 @@ const corsOptions = {
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
-
-
-
 const __dirname = path.resolve()
 
 // Routes
-
-app.use("/api/student", studentRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
 app.use("/api/librarian", librarianRoutes);
 
+
+
 if(process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join(__dirname, "/client/dist")))
+  app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+    res.sendFile(path.resolve(__dirname, '..', "client", "dist", "index.html"))
   })  
 }
 
-app.listen(process.env.PORT || 3000, () => {
-  connectDB()
-  console.log(`Server running on port http://localhost:${process.env.PORT || 3000}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server running on port http://localhost:${process.env.PORT || 3000}`);
+    });
+  }).catch((error) => {
+    console.log(error);
+  });

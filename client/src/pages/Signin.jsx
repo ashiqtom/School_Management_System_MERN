@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InputField from './InputFieldComponent';
-import SubmitButton from './SubmitButton';
+import InputField from '../Components/InputFieldComponent';
+import SubmitButton from '../Components/SubmitButton';
 import { changeRole, loginUser, setAccessToken } from '../redux/feathers/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '../service/api/auth/PostApi';
